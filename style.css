@@ -1,0 +1,28 @@
+
+body{
+    background-color: rgba(70, 48, 197, 0.521);
+}
+#container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 250px;
+}
+
+button{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 20px;
+    font-size: 30px;
+}
+
+div{
+    display: flex;
+    flex-direction: row;
+   
+}
+
+#Text{
+    background-color: rgb(111, 187, 187);
+    max-width: 300px;
+}
