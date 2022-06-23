@@ -1,28 +1,28 @@
 const contain = document.getElementById('container');
-const text = document.getElementById('Text');
+const display = document.getElementById('Text');
 const h1 = document.querySelector('h1');
 const buttons = document.querySelectorAll('button');           
 const toDisplay = document.querySelectorAll(".todisplay");        
 const numericBtns = document.querySelectorAll(".numeric");
-const operators = document.querySelectorAll('.operators');
-h1.appendChild(text);                                                   
+const operators = document.querySelectorAll('.operators');                                                  
 const equal = document.getElementById('=');
 const dotBtn = document.getElementById('.')
 const clearBtn = document.getElementById('clear');
 const backSpace = document.getElementById('backSpace')
 
-let a = '';
-let b = '';
+let num1 = '';
+let num2 = '';
 let operator = '';
 
-let add = (a,b) => parseFloat(a) + parseFloat(b);
-let subtract = (a,b)=> a-b;
-let multiply1 = (a,b) => a*b;    
-let divide1 = (a,b) =>a/b;
+
+let add = (num1,num2) => parseFloat(num1) + parseFloat(num2);
+let subtract = (num1,num2)=> num1-num2;
+let multiply1 = (num1,num2) => num1*num2;    
+let divide1 = (num1,num2) =>num1/num2;
 
 function clear(){
-  a = '';
-  b = '';
+  num1 = '';
+  num2 = '';
   operator = '';
   text.value = '';
   dotBtn.disabled = false;
@@ -38,57 +38,64 @@ dotBtn.addEventListener('click',e =>{
   dot = e.target.innerText
 })
 
-numericBtns.forEach((numeric)=> {
-   numeric.addEventListener('click',e =>{
-    if (operator === ''){
-      a += e.target.innerText; 
-      if(a.includes('.') && operator === ''){
-        dotBtn.disabled = true}
-      } else {
-      b += e.target.innerText;  
-      dotBtn.disabled = false;
-      if(b.includes('.'))
-      {dotBtn.disabled = true}
-    } if (a.length >= 11 || b.length >= 11 || text.length >=11 ){
-      text.value = "Too long"
-    }
-  });
-})  
+// numericBtns.forEach((numeric)=> {
+//    numeric.addEventListener('click',e =>{
+//     if (operator === ''){
+//       num1 += e.target.innerText; 
+//       if(num1.includes('.') && operator === ''){
+//         dotBtn.disabled = true}
+//       } else {
+//       num2 += e.target.innerText;  
+//       dotBtn.disabled = false;
+//       if(num2.includes('.'))
+//       {dotBtn.disabled = true}
+//     } if (num1.length >= 11 || num2.length >= 11 || text.length >=11 ){
+//       text.value = "Too long"
+//     }
+//   });
+// })  
 
 toDisplay.forEach((button)=>{
     button.addEventListener('click',display)})
 
-function display(){ 
-    text.value += this.innerText
-    // if(text.value.includes('.' + '.')){
-    //   text.value = text.value.indexOf('.',-1)
-    //   console.log(text.value)
-    // }
-}
+
 function operate(){
   switch(operator) {
         case '+':
-          text.value = add(a,b)
+          result = add(num1,num2)
           break;
         case '-':
-          text.value = subtract(a,b)
+          result = subtract(num1,num2)
           break;
         case '*':
-          text.value =  multiply1(a,b)
+          result =  multiply1(num1,num2)
           break;
         case '/':
-          text.value = divide1(a,b)
+          result = divide1(num1,num2)
           break;
          default:
-          text.value = '  '
+          result = ''
       }
+      display.innerText = result
 }
 
 clearBtn.addEventListener('click',clear)
 equal.addEventListener('click',operate)
-backSpace.addEventListener('click',deleteNum)
-//operator,a,b
+// backSpace.addEventListener('click',deleteNum)
 
-function deleteNum(){
+contain.addEventListener('click',e =>{
+   if (e.target.matches('button')){
+   const key = e.target
+   const action = key.dataset.action
+   const keyContent = key.textContent
+   const displayedNum = display.textContent
+   if (!action) {
+      if (displayedNum === '0') {
+        display.textContent = keyContent
+      } else {
+        display.textContent = displayedNum + keyContent
+      }
+    }
 
-}
+   }
+})
