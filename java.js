@@ -1,18 +1,22 @@
 const contain = document.getElementById('container');
-const display = document.getElementById('Text');
+const text = document.getElementById('Text');
 const h1 = document.querySelector('h1');
 const buttons = document.querySelectorAll('button');           
 const toDisplay = document.querySelectorAll(".todisplay");        
 const numericBtns = document.querySelectorAll(".numeric");
-const operators = document.querySelectorAll('.operators');                                                  
+const operators = document.querySelectorAll('.operators');
+h1.appendChild(text);                                                   
 const equal = document.getElementById('=');
 const dotBtn = document.getElementById('.')
 const clearBtn = document.getElementById('clear');
 const backSpace = document.getElementById('backSpace')
+const display =  document.getElementById('display')
 
 let num1 = '';
 let num2 = '';
 let operator = '';
+let haveDot = false;
+let result = ''
 
 
 let add = (num1,num2) => parseFloat(num1) + parseFloat(num2);
@@ -26,40 +30,50 @@ function clear(){
   operator = '';
   text.value = '';
   dotBtn.disabled = false;
+  display.textContent = 'Result';
 }
 
 operators.forEach((button)=>{
    button.addEventListener("click", e => {
-    operator = e.target.innerText;
- })
+    if (!text.value) return;
+    haveDot = false;
+    operator += e.target.innerText;
+    if(operator !== ''){
+      text.value = ''
+    }
+
+   })
 })
 
 dotBtn.addEventListener('click',e =>{
   dot = e.target.innerText
 })
 
-// numericBtns.forEach((numeric)=> {
-//    numeric.addEventListener('click',e =>{
-//     if (operator === ''){
-//       num1 += e.target.innerText; 
-//       if(num1.includes('.') && operator === ''){
-//         dotBtn.disabled = true}
-//       } else {
-//       num2 += e.target.innerText;  
-//       dotBtn.disabled = false;
-//       if(num2.includes('.'))
-//       {dotBtn.disabled = true}
-//     } if (num1.length >= 11 || num2.length >= 11 || text.length >=11 ){
-//       text.value = "Too long"
-//     }
-//   });
-// })  
+numericBtns.forEach((numeric)=> {
+   numeric.addEventListener('click',e =>{
+    if(e.target.innerText === '.' && !haveDot){
+        haveDot = true
+      }else if(e.target.innerText === '.' && haveDot){
+      return;
+    } 
+    text.value +=  e.target.innerText
+ })
+})
 
-toDisplay.forEach((button)=>{
-    button.addEventListener('click',display)})
-
-
+numericBtns.forEach((numeric)=> {
+  numeric.addEventListener('click',e =>{
+if (operator === ''){
+    num1 = text.value
+}else if (operator !== ''){
+    num2 = parseInt(text.value)
+    operate()
+  }
+})
+})
+ 
 function operate(){
+  if (isNaN(num1) || isNaN(num2) && result == '')
+  return
   switch(operator) {
         case '+':
           result = add(num1,num2)
@@ -73,29 +87,21 @@ function operate(){
         case '/':
           result = divide1(num1,num2)
           break;
-         default:
-          result = ''
-      }
-      display.innerText = result
+          }
+          num2= ''
+          operator = ''
+     num1 = result
+     display.textContent = result
 }
 
 clearBtn.addEventListener('click',clear)
-equal.addEventListener('click',operate)
-// backSpace.addEventListener('click',deleteNum)
-
-contain.addEventListener('click',e =>{
-   if (e.target.matches('button')){
-   const key = e.target
-   const action = key.dataset.action
-   const keyContent = key.textContent
-   const displayedNum = display.textContent
-   if (!action) {
-      if (displayedNum === '0') {
-        display.textContent = keyContent
-      } else {
-        display.textContent = displayedNum + keyContent
-      }
-    }
-
-   }
+equal.addEventListener('click',e=>{
+  operate();
 })
+backSpace.addEventListener('click',deleteNum)
+
+function deleteNum(e){
+  text.value = text.value.toString().slice(0,-1)
+
+}
+
