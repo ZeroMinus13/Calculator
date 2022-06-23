@@ -1,4 +1,8 @@
 
+* {
+    box-sizing: border-box;
+    color: rgb(11, 11, 104);
+  }
 body{
     background-color: rgba(70, 48, 197, 0.521);
 }
@@ -6,6 +10,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     max-width: 250px;
+    border: 2px solid black ;
 }
 
 button{
@@ -14,15 +19,41 @@ button{
     flex-wrap: nowrap;
     padding: 20px;
     font-size: 30px;
-}
-
-div{
-    display: flex;
-    flex-direction: row;
-   
+    object-fit: cover;
+    width: 61px
 }
 
 #Text{
-    background-color: rgb(111, 187, 187);
-    max-width: 300px;
+    display: flex;
+    background-color: rgb(38, 95, 95);
+    max-width: 250px;
+    justify-content: flex-end;
+    margin-bottom: -22px;
+    border: 3px solid grey;
+    font-size: 40px;
+}
+#backSpace{
+    width: 183px;
+}
+#Text{
+    text-align: right;
+}
+#clear,#backSpace,#equal{
+    background-color:rgb(24, 44, 56);
+    color: rgb(23, 219, 23);
+}
+.operators{
+    background-color: rgb(110, 23, 209);
+    color: aqua;
+}
+.numeric{
+    background-color: rgb(23, 150, 209);
+    color: blueviolet;
+}
+
+button:hover{
+    background-color: black;
+}
+#backSpace:hover ,#clear:hover ,#equal:hover{
+    background-color: black;
 }
