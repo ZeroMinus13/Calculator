@@ -1,8 +1,4 @@
 
-* {
-    box-sizing: border-box;
-    color: rgb(11, 11, 104);
-  }
 body{
     background-color: rgba(70, 48, 197, 0.521);
 }
@@ -10,7 +6,6 @@ body{
     display: flex;
     flex-wrap: wrap;
     max-width: 250px;
-    border: 2px solid black ;
 }
 
 button{
@@ -19,9 +14,6 @@ button{
     flex-wrap: nowrap;
     padding: 20px;
     font-size: 30px;
-    object-fit: cover;
-    width: 61px
-    
 }
 
 div{
@@ -31,18 +23,6 @@ div{
 }
 
 #Text{
-    display: flex;
-    background-color: rgb(38, 95, 95);
-    max-width: 250px;
-    justify-content: flex-end;
-    margin-bottom: -22px;
-    border: 3px solid grey;
-    font-size: 40px;
-}
-#backSpace{
-    width: 183px;
-}
-#Text{
-    text-align: right;
-   
+    background-color: rgb(111, 187, 187);
+    max-width: 300px;
 }
